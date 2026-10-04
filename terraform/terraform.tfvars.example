@@ -1,0 +1,39 @@
+aws_region = "ap-south-1"
+
+# Existing public Route 53 hosted zone.
+hosted_zone_id = "Z0123456789EXAMPLE"
+
+record_name = "app.example.com"
+record_type = "A"
+
+# These are health-check targets. Your failover records should point to the
+# actual infrastructure you want DNS to return.
+primary_endpoint   = "primary.example.com"
+secondary_endpoint = "secondary.example.com"
+
+health_check_type     = "HTTPS"
+health_check_path     = "/health"
+health_check_port     = 443
+health_check_protocol = "HTTPS"
+
+request_interval  = 30
+failure_threshold = 3
+
+# 30–60 seconds is a common starting point for failover records.
+ttl = 30
+
+enable_cloudwatch_alarm = true
+create_sns_topic        = false
+
+# If create_sns_topic=true:
+# alarm_email = "ops@example.com"
+
+alarm_period             = 60
+alarm_evaluation_periods = 2
+alarm_threshold          = 1
+
+tags = {
+  Project     = "route53-failover"
+  Environment = "example"
+  ManagedBy   = "Terraform"
+}

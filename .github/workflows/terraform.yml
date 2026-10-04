@@ -1,0 +1,61 @@
+name: Terraform
+
+on:
+  pull_request:
+    paths:
+      - "terraform/**"
+      - ".github/workflows/terraform.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "terraform/**"
+      - ".github/workflows/terraform.yml"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  terraform:
+    name: Format, Validate, Plan
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.8"
+
+      - name: Terraform Format
+        run: terraform fmt -check -recursive
+
+      - name: Terraform Init
+        run: terraform init -input=false
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      # Production setup:
+      # 1. Configure GitHub OIDC with an AWS IAM role.
+      # 2. Add the role ARN as repository/environment variable AWS_ROLE_ARN.
+      # 3. Add a real backend.tf through your deployment environment, not Git.
+      # 4. Supply tfvars through a secure mechanism.
+      #
+      # Uncomment after CI authentication/backend configuration is complete.
+      #
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     role-to-assume: ${{ vars.AWS_ROLE_ARN }}
+      #     aws-region: ${{ vars.AWS_REGION }}
+      #
+      # - name: Terraform Plan
+      #   run: terraform plan -input=false -var-file=terraform.tfvars

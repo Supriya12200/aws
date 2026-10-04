@@ -1,0 +1,46 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraform.lock.hcl
+
+# Terraform variables/secrets
+*.tfvars
+*.tfvars.json
+!terraform.tfvars.example
+!*.tfvars.example
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Credentials / keys
+*.pem
+*.key
+credentials
+credentials.json
+.aws/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+
+# Logs
+*.log
+
+# Generated archives
+*.zip
+*.tar
+*.tar.gz
+
+# IDE
+.idea/

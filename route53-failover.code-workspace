@@ -1,0 +1,23 @@
+{
+  "folders": [
+    { "path": "." },
+    { "path": "terraform" }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.terraform": true,
+      "**/*.tfstate*": true
+    },
+    "terraform.languageServer": {
+      "enable": true
+    }
+  },
+  "extensions": {
+    "recommendations": [
+      "hashicorp.terraform",
+      "amazonwebservices.aws-toolkit-vscode",
+      "redhat.vscode-yaml",
+      "eamodio.gitlens"
+    ]
+  }
+}
